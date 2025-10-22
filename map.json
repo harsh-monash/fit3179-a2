@@ -1,0 +1,44 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 650,
+  "title": "Victoria LGAs by Median Age (2023)",
+  "projection": {"type": "mercator"},
+  "data": {
+    "url": "data/chloromap-vic-lga-topojson.json",
+    "format": {"type": "topojson", "feature": "VICLGAgeojson"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.vic_lga__3",
+      "from": {
+        "data": {
+          "url": "data/chloromap-data.csv",
+          "format": {"type": "csv"}
+        },
+        "key": "LGA",
+        "fields": ["LGA", "Region", "Median Age", "Total Population"]
+      }
+    }
+  ],
+  "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.3},
+  "encoding": {
+    "color": {
+      "field": "Median Age",
+      "type": "quantitative",
+      "scale": {"scheme": "blues"},
+      "legend": {"title": "Median Age"}
+    },
+    "tooltip": [
+      {"field": "LGA", "type": "nominal", "title": "LGA"},
+      {"field": "Region", "type": "nominal"},
+      {"field": "Median Age", "type": "quantitative"},
+      {"field": "Total Population", "type": "quantitative"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"grid": false},
+    "legend": {"titleFontSize": 12, "labelFontSize": 11}
+  }
+}

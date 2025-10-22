@@ -12,30 +12,63 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
 
-    <title>First Vega-Lite graph</title>
+    <title>Victorian Demographic Dashboard</title>
 </head>
 
 <body>
 
-   <h1>First Vega-Lite graph</h1>
+    <header>
+        <h1>Victorian Demographic Dashboard</h1>
+        <h2>Population, Age, and Cultural Diversity</h2>
+    </header>
 
-   <div id="bar_chart_2011">
+    <main>
 
-   </div>
+        <section class="row">
+            <div class="half">
+                <h3>Introduction</h3>
+                <p>Victoria’s population is growing and changing - not just in size, but in its age and cultural makeup. This dashboard visualises key demographic patterns across Victorian regions and LGAs to highlight how communities differ in age structure, diversity, and population distribution. Together, these visualisations provide a snapshot of where Victorians live, how old they are, and how population characteristics vary across the state.</p>
+                <p>The first visual compares the total male and female populations across Victoria’s main metropolitan regions. Each bar represents the total population of a region, divided into male (blue) and female (red) segments. This allows quick comparison of regional population size and gender balance, revealing that Southern and Northern areas have the largest and most balanced populations, while inner metropolitan areas are smaller and younger on average.</p>
+            </div>
+            <div class="half chart-container" id="male_female_chart"></div>
+        </section>
 
-   <div id="bar_chart_2016">
+        <section>
+            <h3>Choropleth Map</h3>
+            <div class="chart-container full" id="map"></div>
+            <p>The choropleth map visualises the spatial distribution of median age across Victorian LGAs, providing clear geographic context to population structure. A distinct pattern emerges - Eastern and Southern LGAs, such as Mornington Peninsula, Boroondara, and Whitehorse, display higher median ages, reflecting established, family-oriented or retirement-heavy communities. In contrast, Western and Northern suburbs, including Wyndham, Melton, and Hume, exhibit younger median ages, consistent with areas of recent population growth and higher proportions of young families and migrants. This spatial divide highlights how age demographics align with Melbourne's urban expansion, where outer-metro growth corridors attract younger, more diverse populations, while inner and coastal regions maintain older age profiles.</p>
+        </section>
 
-   </div>
+        <section>
+            <h3>Discussion</h3>
+        </section>
 
-   <div id="male_female_chart">
+        <section class="row">
+            <div class="half chart-container" id="age_pop_scatter"></div>
+            <div class="half">
+                <h3>Scatter Plot Discussion</h3>
+            </div>
+        </section>
 
-   </div>
+        <section class="row">
+            <div class="half chart-container" id="bar_chart_2011"></div>
+            <div class="half chart-container" id="bar_chart_2016"></div>
+        </section>
 
-   <div id="age_pop_scatter">
-    
-   </div>
+
+        <section>
+            <h3>Final Discussion</h3>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Footer</p>
+    </footer>
+
 </body>
 
 
