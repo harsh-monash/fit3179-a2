@@ -23,7 +23,7 @@
     "y": {
       "field": "Total Population",
       "type": "quantitative",
-      "title": "Total Population (ERP)",
+      "title": "Total Population",
       "axis": {"format": ",", "labelFontSize": 12, "titleFontSize": 13}
     },
     "color": {
