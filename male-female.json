@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Male/Female Proportions per Region (Metro VIC)",
+  "data": { "url": "data/all-region-2023-wide.csv" },
+
+  "transform": [
+    { "fold": ["Male Population", "Female Population"], "as": ["SexRaw", "CountRaw"] },
+    { "calculate": "toNumber(datum.CountRaw)", "as": "Count" },
+    { "calculate": "datum.SexRaw === 'Male Population' ? -datum.Count : datum.Count", "as": "Signed" },
+    { "calculate": "abs(datum.Count)", "as": "AbsCount" },
+    { "calculate": "datum.SexRaw === 'Male Population' ? 'Male' : 'Female'", "as": "Sex" }
+  ],
+
+  "mark": { "type": "bar" },
+
+  "encoding": {
+    "y": {
+      "field": "Region",
+      "type": "ordinal",
+      "title": null,
+      "sort": { "field": "Total Population", "order": "descending" }
+    },
+    "x": {
+      "field": "Signed",
+      "type": "quantitative",
+      "title": "Population",
+      "axis": {
+        "grid": false,
+        "labelExpr": "abs(datum.value)",
+        "format": ","
+      }
+    },
+    "color": {
+      "field": "Sex",
+      "type": "nominal",
+      "scale": { "domain": ["Male", "Female"], "range": ["#1f77b4", "#d62728"] },
+      "legend": { "title": null }
+    },
+    "tooltip": [
+      { "field": "Region", "type": "nominal", "title": "Region" },
+      { "field": "Sex", "type": "nominal", "title": "Sex" },
+      { "field": "AbsCount", "type": "quantitative", "title": "Count", "format": "," },
+      { "field": "Total Population", "type": "quantitative", "title": "Total Population", "format": "," }
+    ]
+  },
+
+  "config": {
+    "axis": { "grid": false },
+    "view": { "stroke": null }
+  },
+  "width": 700,
+  "height": { "step": 20 }
+}

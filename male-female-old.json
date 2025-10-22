@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "male/female proportions per Region (metro VIC)",
+  "data": { "url": "data/all-region-2023-wide.csv" },
+
+  "transform": [
+    {
+      "calculate": "trim(replace((isValid(datum.Region) ? datum.Region : datum['\\uFEFFRegion']) + '', '\\u00A0', ' '))",
+      "as": "RegionClean"
+    },
+
+    { "fold": ["Male Population", "Female Population"], "as": ["SexRaw", "CountRaw"] },
+    { "calculate": "toNumber(replace(datum.CountRaw + '', ',', ''))", "as": "Count" },
+
+    {
+      "calculate": "test(/^\\s*female/i, datum.SexRaw) ? 'Female' : 'Male'",
+      "as": "Sex"
+    },
+
+    { "calculate": "datum.Sex === 'Male' ? -datum.Count : datum.Count", "as": "Signed" },
+    { "calculate": "abs(datum.Count)", "as": "AbsCount" },
+
+    { "calculate": "toNumber(replace(datum['Total Population'] + '', ',', ''))", "as": "TotalNum" }
+  ],
+
+  "mark": "bar",
+
+  "encoding": {
+    "y": {
+      "field": "RegionClean",
+      "type": "nominal",
+      "title": "Region",
+      "sort": { "field": "TotalNum", "op": "max", "order": "descending" }
+    },
+    "x": {
+      "aggregate": "sum",
+      "field": "Signed",
+      "type": "quantitative",
+      "title": "Total Population (2023)",
+      "axis": { "labelExpr": "abs(datum.value)", "format": "," }
+    },
+    "color": {
+      "field": "Sex",
+      "type": "nominal",
+      "scale": { "domain": ["Male", "Female"], "range": ["#4f83cc", "#d64545"] },
+      "legend": { "title": null, "orient": "top" }
+    },
+    "order": { "field": "Sex", "sort": ["Male", "Female"] },
+    "tooltip": [
+      { "field": "RegionClean", "type": "nominal", "title": "Region" },
+      { "field": "Sex", "type": "nominal" },
+      { "field": "AbsCount", "type": "quantitative", "title": "Count (2023)", "format": "," },
+      { "field": "TotalNum", "type": "quantitative", "title": "Region total", "format": "," }
+    ]
+  },
+
+  "config": {
+    "view": { "stroke": null },
+    "axis": { "labelFontSize": 11, "titleFontSize": 12 }
+  }
+}
