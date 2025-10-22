@@ -1,0 +1,49 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Median Age vs Total Population by Region and LGA (2023).",
+  "title": {"text": "Median Age vs Total Population (2023)", "fontSize": 16},
+  "data": {
+    "url": "data/all-lga-2023.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "Median Age": "number",
+        "Total Population": "number"
+      }
+    }
+  },
+  "mark": {"type": "point", "filled": true, "size": 80, "opacity": 0.85},
+  "encoding": {
+    "x": {
+      "field": "Median Age",
+      "type": "quantitative",
+      "title": "Median Age (years)",
+      "axis": {"labelFontSize": 12, "titleFontSize": 13}
+    },
+    "y": {
+      "field": "Total Population",
+      "type": "quantitative",
+      "title": "Total Population (ERP)",
+      "axis": {"format": ",", "labelFontSize": 12, "titleFontSize": 13}
+    },
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "title": "Region",
+      "legend": {"orient": "top", "columns": 3}
+    },
+    "tooltip": [
+      {"field": "LGA", "type": "nominal", "title": "LGA"},
+      {"field": "Region", "type": "nominal", "title": "Region"},
+      {"field": "Median Age", "type": "quantitative", "title": "Median Age (years)"},
+      {"field": "Total Population", "type": "quantitative", "title": "Total Population", "format": ","}
+    ]
+  },
+  "width": 640,
+  "height": 420,
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"grid": false},
+    "legend": {"labelFontSize": 11, "title": null}
+  }
+}
