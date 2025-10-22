@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Top 15 birth countries of overseas born Victorians in 2016",
+  "title": "top 15 birth countries of overseas born victorian's (2016)",
+  "data": {
+    "url": "data/vic-top15-birth-countries.csv",
+    "format": { "type": "csv" }
+  },
+  "mark": { "type": "bar" },
+  "encoding": {
+    "y": {
+      "field": "Country of Birth",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Country"
+    },
+    "x": {
+      "field": "2016 Persons",
+      "type": "quantitative",
+      "title": "2016 Persons"
+    },
+    "tooltip": [
+      { "field": "Country of Birth", "type": "nominal", "title": "Country" },
+      { "field": "2016 Persons", "type": "quantitative" },
+      { "field": "2011 Persons", "type": "quantitative" }
+    ]
+  },
+  "width": 600,
+  "height": 420
+}
